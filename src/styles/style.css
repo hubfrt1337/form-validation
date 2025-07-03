@@ -1,0 +1,23 @@
+p * {
+    display: block;
+}
+.error{
+    width: 100%;
+    padding: 0;
+    color: white;
+    background-color: #900;
+    border-radius: 0 0 5px 5px;
+}
+
+input[type="email"] {
+  appearance: none;
+
+  width: 100%;
+  border: 1px solid #333;
+  margin: 0;
+
+  font-family: inherit;
+  font-size: 90%;
+
+  box-sizing: border-box;
+}
