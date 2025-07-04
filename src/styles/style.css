@@ -1,5 +1,18 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+form{
+    width: 200px;
+    font-size: 1em;
+    margin: auto;
+}
 p * {
     display: block;
+}
+span{
+    height: 20px;
 }
 .error{
     width: 100%;
@@ -7,9 +20,12 @@ p * {
     color: white;
     background-color: #900;
     border-radius: 0 0 5px 5px;
+    box-sizing: border-box;
+    font-size: 80%;
+    opacity: 0;
 }
 
-input[type="email"] {
+input {
   appearance: none;
 
   width: 100%;
@@ -20,4 +36,23 @@ input[type="email"] {
   font-size: 90%;
 
   box-sizing: border-box;
+}
+
+input:invalid{
+    border-color: #900;
+    background-color: #fdd;
+}
+input:focus:invalid{
+    outline: none;
+}
+input:valid{
+    border-color: green;
+    background-color: lightgreen;
+}
+.error.active{
+    padding: 0.3em;
+    opacity: 1;
+}
+datalist, datalist option{
+    display: none;
 }

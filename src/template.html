@@ -7,9 +7,21 @@
 </head>
 <body>
     <form novalidate>
-        <label for="mail">Insert your e-mail</label>
-        <input type="email" name="mail" id="mail">
+        <p>
+        <label for="mail">Insert your e-mail:</label>
+        <input type="email" name="mail" id="mail" required minlength="5">
         <span class="error" aria-live="polite"></span>
+        </p>
+        <p> 
+            <label for="kraj">Select your Country from list:</label>
+            <input type="text" name="kraj" list="countries" id="t1" pattern="[Uu]nited [Ss]tates|[Pp]oland|[Gg]erman" required>
+            <datalist id="countries">
+                <option value="United States"></option>
+                <option value="German"></option>
+                <option value="Poland"></option>
+            </datalist>
+            <span class="errorCountries" aria-live="polite"></span>
+        </p>
         <button type="submit">submit</button>
     </form>
 </body>
