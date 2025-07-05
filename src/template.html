@@ -8,12 +8,12 @@
 <body>
     <form novalidate>
         <p>
-        <label for="mail">Insert your e-mail:</label>
+        <label for="mail">E-mail:</label>
         <input type="email" name="mail" id="mail" required minlength="5">
         <span class="error" aria-live="polite"></span>
         </p>
         <p> 
-            <label for="kraj">Select your Country from list:</label>
+            <label for="kraj">Country:</label>
             <input type="text" name="kraj" list="countries" id="t1" pattern="[Uu]nited [Ss]tates|[Pp]oland|[Gg]erman" required>
             <datalist id="countries">
                 <option value="United States"></option>
@@ -21,6 +21,19 @@
                 <option value="Poland"></option>
             </datalist>
             <span class="errorCountries" aria-live="polite"></span>
+        </p>
+        <p>
+        <label for="post">Postal Code</label>
+        <input type="text" name="post" id="postal" required pattern="/^([0-9]{2}-[0-9]{3})$/">
+        <span class="error" aria-live="polite"></span>
+        </p>
+        <p>
+        <label for="password">Enter Password</label>
+        <input type="text" name="password" id="password" required minlength="8">
+        <span class="error" aria-live="polite"></span>
+        <label for="confirm">Confirm password</label>
+        <input type="text" name="confirm" id="confirm" required minlength="8">
+        <span class="error" aria-live="polite"></span>
         </p>
         <button type="submit">submit</button>
     </form>

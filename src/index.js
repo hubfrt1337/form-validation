@@ -4,6 +4,13 @@ const email = document.getElementById('mail');
 const mailError = document.querySelector("#mail + span.error");
 const countries = document.getElementById("t1");
 const countriesError = document.querySelector(".errorCountries")
+const postal = document.getElementById("postal");
+const postalError = document.querySelector("#postal + span.error");
+const password = document.getElementById("password");
+const passError = document.querySelector("#password + span.error")
+const confirm = document.getElementById("confirm");
+const confError = document.querySelector("#confirm + span.error")
+
 
 email.addEventListener('input', (event) => {
     if(email.validity.valid){
@@ -15,10 +22,44 @@ email.addEventListener('input', (event) => {
 })
 
 countries.addEventListener("input", (event) =>{
-    if(!countries.validity.patternMismatch){
+    if(countries.validity.valid){
         validInputs(countriesError)
     } else {
         showErrorCountries()
+    }
+})
+
+postal.addEventListener("input", function(){
+    if(!countries.validity.valid){
+        postalError.textContent = "Choose Country first!";
+        postalError.classList.add("active");
+    } 
+     if(countries.validity.valid) {
+        checkPostalCode(countries.value.toLowerCase());
+        showErrorPostal();
+    } 
+    if(postal.validity.valid){
+        validInputs(postalError);
+    }
+
+})
+password.addEventListener("input", () => {
+    if(password.validity.valid){
+        validInputs(passError)
+    } else {
+        passError.textContent = "Password must contain min 8 characters"
+        passError.className = "error active"
+    }
+})
+confirm.addEventListener("input", () =>{
+    if(confirm.value !== password.value){
+        confError.textContent = "Passwords must be the same";
+        confError.className = "error active";
+        console.log(confirm.validity.valid)
+    } else if(confirm.value === password.value && confirm.value.length >= 8){
+        validInputs(confError);
+        confirm.style.backgroundColor = "light-green";
+        confirm.style.color = "black";
     }
 })
 
@@ -27,11 +68,24 @@ form.addEventListener("submit", (event) => {
         showError();
         event.preventDefault();
     }
-    if(countries.validity.patternMismatch){
+    else if(!countries.validity.valid){
         showErrorCountries();
         event.preventDefault();
     }
+    else if(!postal.validity.valid){
+        showErrorPostal();
+        event.preventDefault();
+    } else if(!password.validity.valid){
+        passError.textContent = "Password must contain min 8 characters";
+        passError.className = "error active";
+        event.preventDefault();
+    } else if(confirm.value !== password.value ){
+        event.preventDefault();
+        confError.textContent = "Passwords must be the same";
+        passError.className = "error active"
+    }
 })
+
 function showError(){
     if(email.validity.valueMissing){
         mailError.textContent = 'Insert e-mail adress';
@@ -45,13 +99,11 @@ function showError(){
 
 
 function showErrorCountries(){
-    if(countries.validity.value){
+    if(countries.validity.valueMissing){
         countriesError.textContent = "Insert Country";
-        console.log('pusto');
-        console.log(countries.validity)
     }
     else if(countries.validity.patternMismatch){
-        countriesError.textContent = "Wrong Country name";
+        countriesError.textContent = "Poland / United States / German";
 
     }
     countriesError.classList.add("error", "active");
@@ -62,13 +114,21 @@ function validInputs(DOM){
     DOM.textContent = "";
     DOM.className = "error";
 }
-
-function checkPostalCode(postCode, country){
-    if(country == "PL"){
-        const postCodeRegexPL = /^([0-9]{2}-[0-9]{3})$/;
-    }
-    const postCodeRegex = /^([A-Z]{1,2}[0-9][0-9A-Z]? ?[0-9][A-Z]{2}|GIR ?0AA)$/;
-    
-    return postCodeRegex.test(postCode);
+function showErrorPostal(){
+    if(postal.validity.valueMissing){
+        postalError.textContent = "Insert post Code"
+    } else if(postal.validity.patternMismatch){
+            postalError.textContent = `Use: 00-000 format for ${countries.value} postCode`;
+        } 
+     postalError.className = "error active";
 }
-console.log(checkPostalCode("62-600"));
+
+function checkPostalCode(country){
+  if(country === "poland"){
+    postal.pattern = "^([0-9]{2}-[0-9]{3})$";
+  } else if(country === "united states"){
+    postal.pattern = "^\d{5}(-\d{4})?$"
+  } else if(country === "german"){
+    postal.pattern = "^\d{5}$";
+  }
+}
